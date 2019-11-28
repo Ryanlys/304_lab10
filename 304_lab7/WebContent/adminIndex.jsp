@@ -21,15 +21,19 @@ if(session.getAttribute("authenticatedUser") != null)
 
 <h1 align="center">Welcome to This Grocery</h1>
 
-<h2 align="center"><a href="login.jsp">Login</a></h2>
-
 <h2 align="center"><a href="listprod.jsp">Begin Shopping</a></h2>
 
 <h2 align="center"><a href="listorder.jsp">List All Orders</a></h2>
 
-<h2 align="center"><a href="customer.jsp">Your Info</a></h2>
+<h2 align="center"><a href="customers.jsp">List All Customers</a></h2>
+
+<h2 align="center"><a href="yourInfo.jsp">Your Info</a></h2>
 
 <h2 align="center"><a href="admin.jsp">Financial Report</a></h2>
+
+<h2 align="center"><a href="addProduct.jsp">Add Product</a></h2>
+
+<h2 align="center"><a href="editProduct.jsp">Manage Products</a></h2>
 
 <h2 align="center"><a href="logout.jsp">Log out</a></h2>
 

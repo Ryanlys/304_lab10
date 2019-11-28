@@ -26,9 +26,9 @@ catch (java.lang.ClassNotFoundException e)
 // out.println(currFormat.format(5.0);  // Prints $5.00
 
 // Make connection
-String url = "jdbc:sqlserver://sql04.ok.ubc.ca:1433;DatabaseName=db_nhendrad;";
-String uid = "nhendrad";
-String pw = "34089243";
+String url = "jdbc:sqlserver://sql04.ok.ubc.ca:1433;DatabaseName=db_rlam;";
+String uid = "rlam";
+String pw = "54122072";
 NumberFormat currFormat = NumberFormat.getCurrencyInstance();
 		
 //System.out.println("Connecting to database.");

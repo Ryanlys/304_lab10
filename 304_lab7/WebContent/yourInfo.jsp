@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Customer Page</title>
+<title>Your Info</title>
 </head>
 <body>
 
