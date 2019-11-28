@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-        <title>This Grocery Main Page</title>
+        <title>Don't Leaf Me: Main</title>
 </head>
 <body>
 
