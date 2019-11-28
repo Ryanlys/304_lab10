@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>MY NAME Grocery Order List</title>
+<title>This Grocery Order List</title>
 </head>
 <body>
 
@@ -26,12 +26,12 @@ catch (java.lang.ClassNotFoundException e)
 // out.println(currFormat.format(5.0);  // Prints $5.00
 
 // Make connection
-String url = "jdbc:sqlserver://sql04.ok.ubc.ca:1433;DatabaseName=db_rlam;";
-String uid = "rlam";
-String pw = "54122072";
+String url = "jdbc:sqlserver://sql04.ok.ubc.ca:1433;DatabaseName=db_nhendrad;";
+String uid = "nhendrad";
+String pw = "34089243";
 NumberFormat currFormat = NumberFormat.getCurrencyInstance();
 		
-System.out.println("Connecting to database.");
+//System.out.println("Connecting to database.");
 
 try
 {
@@ -42,7 +42,7 @@ try
 	ResultSet rst = stmt.executeQuery("select orderId, orderDate, customer.customerId, customer.firstName, customer.lastName, totalAmount from ordersummary,customer where customer.customerId = ordersummary.customerId");
 	PreparedStatement pstmt = con.prepareStatement("select productId, quantity from orderproduct where orderId = ?");
 	// For each order in the ResultSet
-	System.out.println("before while");
+	//System.out.println("before while");
 	while(rst.next())
 	{
 		out.println("<table border=\"1\"><tr><th>Order ID</th><th>Order Date</th><th>Customer ID</th><th>CustomerName</th><th>Total Amount</th></tr>");
@@ -61,7 +61,7 @@ try
 		out.println("</table></td></tr>");
 	
 	}
-	System.out.println("Stuff should have been done");
+	//System.out.println("Stuff should have been done");
 	con.close();
 }
 catch (Exception e)

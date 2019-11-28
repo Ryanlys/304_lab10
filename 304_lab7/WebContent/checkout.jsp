@@ -1,6 +1,7 @@
+<!DOCTYPE html>
 <html>
 <head>
-<title>Ray's Grocery</title>
+<title>This Grocery</title>
 </head>
 <body>
 
@@ -16,4 +17,5 @@
 
 </body>
 </html>
+
 

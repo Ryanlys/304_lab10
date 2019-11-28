@@ -1,3 +1,14 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ page import="java.sql.*"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>This Grocery</title>
+</head>
+<body>
+
 <%
 /**
 A JSP file that encapsulates all database access.
@@ -9,13 +20,13 @@ Public methods:
 - public void closeConnection() throws SQLException  
 **/
 %>
-<%@ page import="java.sql.*"%>
+
 <%!
 	// TODO: Modify database/user connection info
 	// User id, password, and server information
-	private String url = "jdbc:sqlserver://sql04.ok.ubc.ca:1433;DatabaseName=db_rlam;";
-	private String uid = "rlam";
-	private String pw = "54122072";
+	private String url = "jdbc:sqlserver://sql04.ok.ubc.ca:1433;DatabaseName=db_nhendrad;";
+	private String uid = "nhendrad";
+	private String pw = "34089243";
 
 	// Connection
 	private Connection con = null;
@@ -31,9 +42,8 @@ Public methods:
 		{
 			throw new SQLException("ClassNotFoundException: " +e);
 		}
-		System.out.println("Connecting to db");
+	
 		con = DriverManager.getConnection(url, uid, pw);
-		System.out.println("Connected to db");
 	}
    
 	public void closeConnection()
@@ -47,3 +57,6 @@ Public methods:
 		{ /* Ignore connection close error */ }
 	}
 %>
+
+</body>
+</html>

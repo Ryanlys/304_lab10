@@ -66,9 +66,21 @@ else
 		}		
 
 		out.print("<td align=\"right\">"+currFormat.format(pr)+"</td>");
-		out.print("<td align=\"right\">"+currFormat.format(pr*qty)+"</td></tr>");
+		out.print("<td align=\"right\">"+currFormat.format(pr*qty)+"</td>");
+		//out.print("<td>     </td>");
+		out.print("<td><a href=\"RemoveCart.jsp?id=" + product.get(0) + "\">Remove From Cart</a>");
+		//out.print("<td>     </td>");
+		
+		String quantity = request.getParameter("quantity");
+		out.print("<td> <form method=\"get\"> <input type=\"text\" name=\"quantity\"> <input type=\"submit\" value=\"Submit\"></form> </td>");
+		//session.setAttribute("type", "text");
+		
+		out.print("<td><a href=\"ChangeQuantity.jsp?id=" + product.get(0) + "&quantity=" + quantity + "\">Change Quantity</a>");
+		
 		out.println("</tr>");
 		total = total +pr*qty;
+		
+		
 	}
 	out.println("<tr><td colspan=\"4\" align=\"right\"><b>Order Total</b></td>"
 			+"<td align=\"right\">"+currFormat.format(total)+"</td></tr>");
