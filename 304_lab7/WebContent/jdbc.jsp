@@ -24,9 +24,9 @@ Public methods:
 <%!
 	// TODO: Modify database/user connection info
 	// User id, password, and server information
-	private String url = "jdbc:sqlserver://sql04.ok.ubc.ca:1433;DatabaseName=db_nhendrad;";
-	private String uid = "nhendrad";
-	private String pw = "34089243";
+	private String url = "jdbc:sqlserver://sql04.ok.ubc.ca:1433;DatabaseName=db_rlam;";
+	private String uid = "rlam";
+	private String pw = "54122072";
 
 	// Connection
 	private Connection con = null;

@@ -10,7 +10,12 @@
 // TODO: Display user name that is logged in (or nothing if not logged in)	
 
 	if(session.getAttribute("authenticatedUser") != null)
-		out.println("<h1>Hi " + session.getAttribute("authenticatedUser") + "!</h1>");
+	{
+		String name = (String) session.getAttribute("authenticatedUser");
+		String name1 = name.substring(0,1);
+		String name2 = name1.toUpperCase();
+		out.println("<h1>Hi " +  name2 + name.substring(1)+ "!</h1>");
+	}
 
 %>
 
@@ -22,7 +27,7 @@
 
 <h2 align="center"><a href="listorder.jsp">List All Orders</a></h2>
 
-<h2 align="center"><a href="customer.jsp">Customer Info</a></h2>
+<h2 align="center"><a href="customer.jsp">Your Info</a></h2>
 
 <h2 align="center"><a href="admin.jsp">Administrators</a></h2>
 
