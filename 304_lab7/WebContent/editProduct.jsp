@@ -1,116 +1,73 @@
 <!DOCTYPE html>
-<%@ page import="java.sql.*,java.net.URLEncoder" %>
-<%@ page import="java.text.NumberFormat" %>
-<%@ include file="jdbc.jsp" %>
 <html>
 <head>
+<%@ include file="jdbc.jsp" %>
+
 <title>Edit Product</title>
 </head>
 <body>
-
-
-<h1>Search for the products you want to edit:</h1>
-
-<form method="get" action="editProduct.jsp">
-<input type="text" name="productName" size="50">
-<input type="submit" value="Submit"><input type="reset" value="Reset"> (Leave blank for all products)
-</form>
-
 <%
-String name;
-name = request.getParameter("productName");
-String pid = request.getParameter("id");
-//Note: Forces loading of SQL Server driver
-if (pid == null)
+try
 {
-	try
+	session = request.getSession(true);
+	String pid = (String)session.getAttribute("pidToEdit");
+	System.out.println("pid = "+pid);
+	String pname = request.getParameter("pname");
+	String price = request.getParameter("price");
+	String desc = request.getParameter("desc");
+	String sql2;
+	double price2 = 0;
+	getConnection();
+	String sql = "select productName,productPrice,productDesc from product where productId =" + pid;
+	PreparedStatement pstmt = con.prepareStatement(sql);
+	ResultSet rst = pstmt.executeQuery();
+	sql = "update product set productName = ?,productPrice = ?,productDesc = ? where productId = "+pid;
+	pstmt = con.prepareStatement(sql);
+	while(rst.next())
 	{
-		String url = "jdbc:sqlserver://sql04.ok.ubc.ca:1433;DatabaseName=db_rlam;";
-		String uid = "rlam";
-		String pw = "54122072";
-		Connection con = DriverManager.getConnection(url, uid, pw);
-		String name2 = "";
-		NumberFormat currFormat = NumberFormat.getCurrencyInstance();
-		if (name == null)
+		if(pname.isEmpty())
 		{
-			name2 = "%%";
+			pstmt.setString(1,rst.getString(1));
 		}
 		else
 		{
-			name2 = "%" + name + "%";	
-		} 
-		PreparedStatement pstmt = con.prepareStatement("select productId, productName, productPrice from product where productName like ?");
-		pstmt.setString(1,name2);
-		ResultSet rst = pstmt.executeQuery();
-		// Print out the ResultSet
-		out.println("<h2>All Products</h2>");
-		out.println("<table><tr><th>Product Name</th><th>Price</th></tr>");
-		while(rst.next())
-		{
-			
-			out.println("<tr><td><a href=\"editProduct.jsp?id=" + rst.getInt(1)+"\">"+rst.getString(2) + "</a></td><td>" + currFormat.format(rst.getDouble(3)) + "</td></tr>");
-			
+			pstmt.setString(1,pname);
 		}
-		out.println("</table>");
-	
-	//For each product create a link of the form
-	//addcart.jsp?id=productId&name=productName&price=productPrice
-	//Close connection
-		System.out.println("Stuff should have been done");
-		con.close();
-	}
-	catch (Exception e)
-	{
-		e.printStackTrace();
-	}
-	
-}
-else
-{
-	String url = "jdbc:sqlserver://sql04.ok.ubc.ca:1433;DatabaseName=db_rlam;";
-	String uid = "rlam";
-	String pw = "54122072";
-	Connection con = DriverManager.getConnection(url, uid, pw);
-	String imageURL = "";
-	Statement stmt = con.createStatement();
-	ResultSet rst = stmt.executeQuery("select productImageURL from product where productId = " + pid);
-	rst.next();
-	boolean hasImage = false;
-	if (rst.getString(1) != null)
-	{
-		imageURL = rst.getString(1);
-		hasImage = true;
-	}
-	else
-	{
-		hasImage = false;
-	}
-	String sql = "select productName from product where productId = " + pid;
-	rst = stmt.executeQuery(sql);
-	if (rst.next())
-	{
 		
-		out.println("<h1>" + rst.getString(1) + "</h1>");
-		if(hasImage)
+		if(price.isEmpty())
 		{
-			
-			out.println("<img src=\""+imageURL+"\">");
+			pstmt.setDouble(2,rst.getDouble(2));
 		}
-		sql = "select productImage from product where productId = " + pid;
-		ResultSet rst2 = stmt.executeQuery(sql);
-		rst2.next();
-		if(rst2.getString(1) != null)
+		else
 		{
-			out.println("<img src=\"displayImage.jsp?id="+pid+"\">");
+			pstmt.setDouble(2,Double.parseDouble(price));
 		}
+		
+		if(desc.isEmpty())
+		{
+			pstmt.setString(3,rst.getString(3));
+		}
+		else
+		{
+			pstmt.setString(3,desc);
+		}
+
 	}
-	
-	out.println("<input type=\"submit\" value=\"Delete\" name=\"button\" formaction=\"delProduct.jsp?id=\""+pid+">");
-	
+	pstmt.executeUpdate();
+	out.println("<h1> Product has been updated. </h1>");
+	out.println("<h1><a href=\"manageProduct.jsp?id="+pid+"\">"+"Go to product</a></h2>");
+	out.println("<h1><a href=\"editProduct.jsp\">Return to product list</a></h2>");
 }
+catch(SQLException e)
+{
+	e.printStackTrace();
+}
+finally
+{
+	closeConnection();
+}
+
 %>
-
-
 
 </body>
 </html>

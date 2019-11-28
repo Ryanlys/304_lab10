@@ -80,8 +80,7 @@ CREATE TABLE orderproduct (
     PRIMARY KEY (orderId, productId),
     FOREIGN KEY (orderId) REFERENCES ordersummary(orderId)
         ON UPDATE CASCADE ON DELETE NO ACTION,
-    FOREIGN KEY (productId) REFERENCES product(productId)
-        ON UPDATE CASCADE ON DELETE NO ACTION
+
 );
 
 CREATE TABLE incart (

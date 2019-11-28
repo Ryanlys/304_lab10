@@ -19,7 +19,7 @@ if(session.getAttribute("authenticatedUser") != null)
 	
 %>
 
-<h1 align="center">Welcome to This Grocery</h1>
+<h1 align="center">Welcome to Don't Leaf Me</h1>
 
 <h2 align="center"><a href="listprod.jsp">Begin Shopping</a></h2>
 
