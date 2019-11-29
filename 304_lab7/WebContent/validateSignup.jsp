@@ -7,7 +7,7 @@
 	signupStatus = signUp(out,request,session);
 
 	if (signupStatus == 0) {
-		session.setAttribute("loginMessage","Your account has been created! Thanks for signing up with [insert store name]! We're super thrilled to you here!");
+		session.setAttribute("loginMessage","Your account has been created! Thanks for signing up with <i>Don't Leaf Me</i>! We're super thrilled to you here!");
 		response.sendRedirect("login.jsp");		// Successful login for admin
 	}
 	else if (signupStatus == -1) {
