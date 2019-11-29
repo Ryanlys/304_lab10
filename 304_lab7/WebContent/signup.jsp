@@ -11,7 +11,7 @@
 		<div style="margin:0 auto;text-align:center;display:inline">
 
 		<h2>Sign Up</h2>
-		<h4>Knock knock, who's there? Welcome to [insert store name here]! We're glad to see new members coming by so please fill in the personal stuffs below and we'll get you on board (rest assured, we've got your information safe and secure).</h4>
+		<h4>Knock knock, who's there? Welcome to <i>Don't Leaf Me</i>! We're glad to see new members coming by so please fill in the personal stuffs below and we'll get you on board (rest assured, we've got your information safe and secure).</h4>
 
 		<%
 		// Print prior error login message if present
