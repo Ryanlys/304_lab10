@@ -20,9 +20,9 @@
 	</table>
 
 	<h3>And your payment details...</h3>
-	<h5>We accept major credit cards such as VISA, MasterCard, and American Express!</h5>
+	<h5>We accept major credit cards such as VISA / VISA Debit, MasterCard, and American Express!</h5>
 	<table style="display:inline">
-		<tr><td>Card Number:</td><td colspan="3"><input type="number" name="cardNumber" size="20"></td></tr>
+		<tr><td>Card Number:</td><td colspan="3"><input type="number" name="cardNumber" size="16"></td></tr>
 		<tr><td>Expiry MM/YY:</td>
 			<td>
 				<select name="expMonth">
@@ -52,7 +52,7 @@
 				</select>
 			</td>
 		</tr>
-		<tr><td>CVC:</td><td><input type="number" name="cvc" size="4" maxlength="4"></td></tr
+		<tr><td>CVC:</td><td><input type="number" name="cvc" size="4" maxlength="4"></td></tr>
 	</table>
 	<br>
 	<table style="display:inline">
