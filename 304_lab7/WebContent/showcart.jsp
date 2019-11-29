@@ -17,7 +17,7 @@
 HashMap<String, ArrayList<Object>> productList = (HashMap<String, ArrayList<Object>>) session.getAttribute("productList");
 
 if (productList == null)
-{	out.println("<H1>Your shopping cart is empty!</H1>");
+{	out.println("<H1> Your shopping cart is empty! </H1>");
 	productList = new HashMap<String, ArrayList<Object>>();
 }
 else
@@ -67,17 +67,26 @@ else
 
 		out.print("<td align=\"right\">"+currFormat.format(pr)+"</td>");
 		out.print("<td align=\"right\">"+currFormat.format(pr*qty)+"</td>");
-		//out.print("<td>     </td>");
+		
 		out.print("<td><a href=\"RemoveCart.jsp?id=" + product.get(0) + "\">Remove From Cart</a>");
-		//out.print("<td>     </td>");
+
+// 		String link = "ChangeQuantity.jsp?id=" + product.get(0) + "&";
 		
+// 		out.print("<td> <form action=\"" + link + "\">");
+ 		out.print("<td><form> <input type=\"number\" name=\"quantity\" min=\"1\"> </form>");
+// 		out.print("<input type=\"submit\" value=\"update\"></form>");
+		
+		/*<form method="get" action="listprod.jsp">
+		<input type="text" name="productName" size="50">
+		
+		
+		/*<input type=\"submit\" value=\"Submit\"></form> </td>");*/
 		String quantity = request.getParameter("quantity");
-		out.print("<td> <form method=\"get\"> <input type=\"text\" name=\"quantity\"> <input type=\"submit\" value=\"Submit\"></form> </td>");
-		//session.setAttribute("type", "text");
 		
-		out.print("<td><a href=\"ChangeQuantity.jsp?id=" + product.get(0) + "&quantity=" + quantity + "\">Change Quantity</a>");
+		out.print("<a href=\"ChangeQuantity.jsp?id=" + product.get(0) + "&quantity=" + quantity + "\">Update</a>");
 		
-		out.println("</tr>");
+		out.print("</tr>");
+		
 		total = total +pr*qty;
 		
 		
