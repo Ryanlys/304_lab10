@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>MY NAME Grocery</title>
+<title>Don't Leaf Me</title>
 </head>
 <body>
 
@@ -63,6 +63,16 @@ try
 		
 	}
 	out.println("</table>");
+	
+	session = request.getSession(true);
+	if((int)session.getAttribute("admin")==1)
+	{
+		out.println("<h2><a href=\"adminIndex.jsp\">Back to Index</a></h2>");
+	}
+	else
+	{
+		out.println("<h2><a href=\"index.jsp\">Back to Index</a></h2>");
+	}
 
 // For each product create a link of the form
 // addcart.jsp?id=productId&name=productName&price=productPrice
@@ -72,7 +82,7 @@ try
 }
 catch (Exception e)
 {
-	
+	e.printStackTrace();
 }
 // Useful code for formatting currency values:
 // NumberFormat currFormat = NumberFormat.getCurrencyInstance();

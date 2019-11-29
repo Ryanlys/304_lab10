@@ -5,8 +5,8 @@
 
 <html>
 <head>
-<title>Ray's Grocery - Product Information</title>
-<link href="css/bootstrap.min.css" rel="stylesheet">
+<title>Don't Leaf Me - Product Information</title>
+<!--  <link href="css/bootstrap.min.css" rel="stylesheet"> -->
 </head>
 <body>
 

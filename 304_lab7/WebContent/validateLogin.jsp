@@ -61,6 +61,7 @@
 						admin = 1; //user is admin
 					}
 					session.setAttribute("authenticatedUser",retStr);
+					session.setAttribute("admin",admin);
 
 				}
 					

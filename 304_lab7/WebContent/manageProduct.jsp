@@ -11,7 +11,7 @@
 
 <h1>Search for the products you want to edit:</h1>
 
-<form method="get" action="editProduct.jsp">
+<form method="get" action="manageProduct.jsp">
 <input type="text" name="productName" size="50">
 <input type="submit" value="Submit"><input type="reset" value="Reset"> (Leave blank for all products)
 </form>

@@ -29,7 +29,7 @@ else
 		pstmt.executeUpdate();
 		
 		out.println("<h2> Product Added! </h2>");
-		
+
 	}
 	catch (SQLException e)
 	{
@@ -58,8 +58,9 @@ else
 	</tr>
 	</table>
 	<br/>
-	<input class="submit" type="submit" name="Submit2" value="Submit">
+	<input class="submit" type="submit" name="Submit2" value="Add">
 </form>
+<h2><a href="listprod.jsp">Back to product list</a></h2>
 
 </body>
 </html>
