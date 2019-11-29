@@ -35,7 +35,7 @@ CREATE TABLE paymentmethod (
     paymentExpiryDate   DATE,
     customerId          INT,
     PRIMARY KEY (paymentMethodId),
-    FOREIGN KEY (customerId) REFERENCES customer(customerid)
+    FOREIGN KEY (customerId) REFERENCES customer(customerId)
         ON UPDATE CASCADE ON DELETE CASCADE 
 );
 
@@ -50,7 +50,7 @@ CREATE TABLE ordersummary (
     shiptoCountry       VARCHAR(40),
     customerId          INT,
     PRIMARY KEY (orderId),
-    FOREIGN KEY (customerId) REFERENCES customer(customerid)
+    FOREIGN KEY (customerId) REFERENCES customer(customerId)
         ON UPDATE CASCADE ON DELETE CASCADE 
 );
 
@@ -79,8 +79,7 @@ CREATE TABLE orderproduct (
     price               DECIMAL(10,2),  
     PRIMARY KEY (orderId, productId),
     FOREIGN KEY (orderId) REFERENCES ordersummary(orderId)
-        ON UPDATE CASCADE ON DELETE NO ACTION,
-
+        ON UPDATE CASCADE ON DELETE NO ACTION
 );
 
 CREATE TABLE incart (
