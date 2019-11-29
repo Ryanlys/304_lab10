@@ -141,28 +141,16 @@ INSERT INTO category(categoryName) VALUES ('Fan-shaped');
 INSERT INTO category(categoryName) VALUES ('Katsura');
 INSERT INTO category(categoryName) VALUES ('Simple');
 
-INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Sugar Maple', 1, ' ',2.70);
-INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Sycamore Maple', 1, ' ',2.70);
-INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('White Oak', 1, ' ',2.70);
-INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Ginkgo', 2, ' ',2.70);
-INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Katsura', 3, ' ',2.70);
-INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Eastern Redbud', 4, ' ',2.70);
-INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Grey Alder', 4, ' ',2.70);
+INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Sugar Maple', 1, ' ',2.69);
+INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Sycamore Maple', 1, ' ',29.99);
+INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('White Oak', 1, ' ',49.99);
+INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Ginkgo', 2, ' ',14.90);
+INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Katsura', 3, ' ',0.89);
+INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Eastern Redbud', 4, ' ',31.99);
+INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Grey Alder', 4, ' ',7.99);
 
 INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password, admin) VALUES ('Arnold', 'Anderson', 'a.anderson@gmail.com', '204-111-2222', '103 AnyWhere Street', 'Winnipeg', 'MB', 'R3X 45T', 'Canada', 'arnold' , 'test', 1);
 INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password, admin) VALUES ('Bobby', 'Brown', 'bobby.brown@hotmail.ca', '572-342-8911', '222 Bush Avenue', 'Boston', 'MA', '22222', 'United States', 'bobby' , 'bobby', 1);
-
-
-DECLARE @orderId int
-INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (1, '2019-10-15 10:25:55', 8.10)
-SELECT @orderId = @@IDENTITY
-INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId, 4, 2, 2.70)
-INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId, 6, 1, 2.70)
-
-DECLARE @orderId int
-INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (2, '2019-10-16 18:00:00', 13.50)
-SELECT @orderId = @@IDENTITY
-INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId, 7, 5, 2.70);
 
 -- New SQL DDL for lab 8
 UPDATE Product SET productImageURL = 'img/1.jpg' WHERE ProductId = 1;
