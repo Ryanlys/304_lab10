@@ -119,7 +119,7 @@ CREATE TABLE productinventory (
     price               DECIMAL(10,2),  
     PRIMARY KEY (productId, warehouseId),   
     FOREIGN KEY (productId) REFERENCES product(productId)
-        ON UPDATE CASCADE ON DELETE NO ACTION,
+        ON UPDATE CASCADE ON DELETE CASCADE,
     FOREIGN KEY (warehouseId) REFERENCES warehouse(warehouseId)
         ON UPDATE CASCADE ON DELETE NO ACTION
 );
@@ -144,12 +144,12 @@ INSERT INTO category(categoryName) VALUES ('Katsura');
 INSERT INTO category(categoryName) VALUES ('Simple');
 
 INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Sugar Maple', 1, ' ',2.70);
-INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Sycamore Maple', 1, ' ',2.70);
-INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('White Oak', 1, ' ',2.70);
-INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Ginkgo', 2, ' ',2.70);
-INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Katsura', 3, ' ',2.70);
-INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Eastern Redbud', 4, ' ',2.70);
-INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Grey Alder', 4, ' ',2.70);
+INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Sycamore Maple', 1, ' ',12.70);
+INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('White Oak', 1, ' ',45.0);
+INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Ginkgo', 2, ' ',23.0);
+INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Katsura', 3, ' ',1.70);
+INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Eastern Redbud', 4, ' ',0.80);
+INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Grey Alder', 4, ' ',0.50);
 
 INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password, admin) VALUES ('Arnold', 'Anderson', 'a.anderson@gmail.com', '204-111-2222', '103 AnyWhere Street', 'Winnipeg', 'MB', 'R3X 45T', 'Canada', 'arnold' , 'test', 1);
 INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password, admin) VALUES ('Bobby', 'Brown', 'bobby.brown@hotmail.ca', '572-342-8911', '222 Bush Avenue', 'Boston', 'MA', '22222', 'United States', 'bobby' , 'bobby', 1);
@@ -176,5 +176,17 @@ UPDATE Product SET productImageURL = 'img/5.jpg' WHERE ProductId = 5;
 UPDATE Product SET productImageURL = 'img/6.jpg' WHERE ProductId = 6;
 UPDATE Product SET productImageURL = 'img/7.jpg' WHERE ProductId = 7;
 
--- Loads image data for product 1
---UPDATE Product SET productImage =  WHERE ProductId = 1;
+
+-- Insert Warehouses & warehouse inven
+INSERT INTO warehouse(warehouseName) VALUES ('Main');
+INSERT INTO warehouse(warehouseName) VALUES ('Backup');
+
+INSERT INTO productinventory (productId,warehouseId,quantity,price) VALUES (1,1,89,2.70);
+INSERT INTO productinventory (productId,warehouseId,quantity,price) VALUES (2,1,33,12.70);
+INSERT INTO productinventory (productId,warehouseId,quantity,price) VALUES (3,1,259,45.0);
+INSERT INTO productinventory (productId,warehouseId,quantity,price) VALUES (4,1,12,23.0);
+INSERT INTO productinventory (productId,warehouseId,quantity,price) VALUES (5,1,234,1.70);
+INSERT INTO productinventory (productId,warehouseId,quantity,price) VALUES (6,1,68,0.80);
+INSERT INTO productinventory (productId,warehouseId,quantity,price) VALUES (7,1,123,0.50);
+INSERT INTO productinventory (productId,warehouseId,quantity,price) VALUES (6,2,15,0.80);
+INSERT INTO productinventory (productId,warehouseId,quantity,price) VALUES (7,2,12,0.50);

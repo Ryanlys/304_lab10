@@ -1,7 +1,17 @@
+<%@ page import="java.sql.*" %>
+<%@ page import="java.text.NumberFormat" %>
+<%@ page import="java.util.HashMap" %>
+<%@ page import="java.util.Iterator" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.Map" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page language="java" import="java.io.*,java.sql.*"%>
+<%@ include file="jdbc.jsp" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF8"%>
 <!DOCTYPE html>
 <%@ page import="java.sql.*,java.net.URLEncoder" %>
 <%@ page import="java.text.NumberFormat" %>
-<%@ include file="jdbc.jsp" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF8"%>
 <html>
 <head>
@@ -11,56 +21,243 @@
 <body>
 <h2> Edit order details</h2>
 <%
-String orderId = request.getParameter("id");
-getConnection();
-try
-{
-	Connection con = DriverManager.getConnection(url, uid, pw);
-	Statement stmt = con.createStatement();
-	NumberFormat currFormat = NumberFormat.getCurrencyInstance();
-	
-	// Write query to retrieve all order summary records
-	ResultSet rst = stmt.executeQuery("select orderId, orderDate, customer.customerId, customer.firstName, customer.lastName, totalAmount from ordersummary,customer where customer.customerId = ordersummary.customerId and ordersummary.orderId = "+orderId);
-	PreparedStatement pstmt = con.prepareStatement("select productId, quantity from orderproduct where orderId = ?");
-	// For each order in the ResultSet
-	while(rst.next())
+
+	session = request.getSession(true);
+
+	// Get customer id
+	String custId = request.getParameter("customerId");
+	String password = request.getParameter("password");
+
+	String cardNumber = request.getParameter("cardNumber");
+	int expMonth = Integer.parseInt(request.getParameter("expMonth"));
+	int expYear = Integer.parseInt(request.getParameter("expYear"));
+	String cvc = request.getParameter("cvc");
+	String cardType = "";
+	boolean validCard = true;
+
+	@SuppressWarnings({"unchecked"})
+	HashMap<String, ArrayList<Object>> productList = (HashMap<String, ArrayList<Object>>) session.getAttribute("productList");
+
+	// Determine if valid customer id was entered
+	// Determine if there are products in the shopping cart
+	// If either are not true, display an error message
+
+	// Make connection
+	if (productList.isEmpty())
 	{
-		out.println("<table border=\"1\"><tr><th>Order ID</th><th>Order Date</th><th>Customer ID</th><th>CustomerName</th><th>Total Amount</th></tr>");
-		out.println("<tr><td>" + rst.getInt(1) + "</td><td>" + rst.getDate(2) + "</td><td>" + rst.getInt(3) + "</td><td>" + rst.getString(4) + " " + rst.getString(5) + "</td><td>" + currFormat.format(rst.getDouble(6))+ "</td></tr><tr align=\"right\"><td colspan=\"5\"><table border=\"1\">");
-		pstmt.setInt(1,rst.getInt(1));
-		ResultSet rst2 = pstmt.executeQuery();
-		out.println("<th>Product Id</th> <th>Quantity</th> <th>Price</th></tr>");
-		while(rst2.next())
-		{
-			Statement test = con.createStatement();
-			ResultSet rst3 = test.executeQuery("select productPrice from product where productId = " + rst2.getInt(1));
-			rst3.next();
-			out.println("<tr><td>" + rst2.getInt(1)+"</td><td>" + +rst2.getInt(2) + "</td><td>" + currFormat.format(rst3.getDouble(1)) + "</td></tr>");
-			
-		}
-		out.println("</table></td></tr>");
-	
+		session.setAttribute("checkoutMessage", "Your shopping cart is empty! Why you no buy some products ah?");
+		response.sendRedirect("checkout.jsp");
 	}
-	
-	out.println("<form action=\"orderStatus.jsp?orderId="+orderId+"\" method=\"get\"");
-	out.println("<input type = \"text\" list = \"options\" name=\"options\">");
-	out.println("<datalist id = \"options\"");
-	out.println("<option value = \"Shipped\">");
-	out.println("<option value = \"Canceled\">");
-	out.println("<option value = \"Recieved\">");
-	out.println("</datalist>");
-	out.println("<input type = \"submit\" value = \"Confirm\"");
-}
-catch (SQLException e)
-{
-	e.printStackTrace();
-}
-finally
-{
-	closeConnection();
-}
+	else
+	{
+		// CHECK CREDIT CARD VALIDITY
+		if (expMonth < 11 && expYear == 2019) {
+			session.setAttribute("checkoutMessage", "Oops, it seems that your credit card has expired. Time to extend it--or please enter one that's not expired...");
+			response.sendRedirect("checkout.jsp");
+			validCard = false;
+		}
+		else {
+			if (cardNumber.charAt(0) == '3') { // American Express
+				cardType = "American Express";
+				if (cardNumber.length() != 15 || cvc.length() != 4) {
+					session.setAttribute("checkoutMessage", "Your American Express credit card is invalid. Please try again.");
+					response.sendRedirect("checkout.jsp");
+					validCard = false;
+				}
+			}
+			else if (cardNumber.charAt(0) == '4') { // VISA
+				cardType = "VISA";
+				if (cardNumber.length() != 16 || cvc.length() != 3) {
+					session.setAttribute("checkoutMessage", "Your VISA credit card is invalid. Please try again.");
+					response.sendRedirect("checkout.jsp");
+					validCard = false;
+				}
+			}
+			else if (cardNumber.charAt(0) == '5') { // MasterCard
+				cardType = "MasterCard";
+				if (cardNumber.length() != 16 || (cardNumber.charAt(1) != '0' && cardNumber.charAt(1) != '1' && cardNumber.charAt(1) != '2' && cardNumber.charAt(1) != '3' && cardNumber.charAt(1) != '4' && cardNumber.charAt(1) != '5') || cvc.length() != 3) {
+					session.setAttribute("checkoutMessage", "Your MasterCard credit card is invalid. Please try again.");
+					response.sendRedirect("checkout.jsp");
+					validCard = false;
+				}
+			}
+			else { // Anything else other than AMEX, VISA, or MC
+				session.setAttribute("checkoutMessage", "Our apologies, we do not recognize your card. We currently only support VISA / VISA Debit, MasterCard, or American Express");
+				response.sendRedirect("checkout.jsp");
+				validCard = false;
+			}
+		}
+
+		if (validCard) {
+			//System.out.println("cart is not empty");
+			try
+			{
+				String url = "jdbc:sqlserver://sql04.ok.ubc.ca:1433;DatabaseName=db_nhendrad;";
+				String uid = "nhendrad";
+				String pw = "34089243";
+				String firstname,lastname,add,city,state,postal,country;
+
+				NumberFormat currFormat = NumberFormat.getCurrencyInstance();
+				Connection con = DriverManager.getConnection(url, uid, pw);
+				Statement stmt = con.createStatement();
+				//System.out.println("Connecting to db...");
+				
+				ResultSet rst = stmt.executeQuery("select firstName, lastName, address, city, state, postalCode, country from customer where customerId = " + custId);
+				if(rst.next())
+				{
+					//System.out.println(" if rst.next() ran");
+					firstname = rst.getString(1);
+					lastname = rst.getString(2);
+					add = rst.getString(3);
+					city = rst.getString(4);
+					state = rst.getString(5);
+					postal = rst.getString(6);
+					country = rst.getString(7);
+					ResultSet rst2;
+					
+					//System.out.println("at Date date = new Date now");
+					Date date = new Date();
+					SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+					String theDate = format.format(date);
+					
+					//System.out.println("at insert into order summary");
+					String sql = "insert into ordersummary(orderDate,shiptoAddress,shiptoCity,shiptoState,shiptoPostalCode,shiptoCountry,customerId) values (?,?,?,?,?,?,?)";
+					PreparedStatement test = con.prepareStatement(sql);
+					test.setTimestamp(1, new java.sql.Timestamp(new Date().getTime()));
+					test.setString(2, add);
+					test.setString(3, city);
+					test.setString(4, state);
+					test.setString(5, postal);
+					test.setString(6, country);
+					test.setString(7, custId);
+					test.execute();
+					System.out.println("did insert into order summary");
+					
+					// Use retrieval of auto-generated keys.
+					//System.out.println("do prepared statement");
+					//PreparedStatement pstmt = con.prepareStatement("select orderId from ordersummary", Statement.RETURN_GENERATED_KEYS);			
+					PreparedStatement pstmt = con.prepareStatement("select orderId from ordersummary order by orderId desc");
+					ResultSet keys = pstmt.executeQuery();
+					keys.next();
+					int orderId = keys.getInt(1);
+					System.out.println(orderId);
+					
+					String productId = "";
+					String price= "";
+					double pr = 0.0;
+					int qty = 0;
+					Double totalPrice = 0.0;
+					
+					int pid,qty2;
+					double price2;
+					String pname;
+					
+					double subtotal = 0;
+					double ordertotal = 0;
+					
+					//System.out.println("at iterator");
+					Iterator<Map.Entry<String, ArrayList<Object>>> iterator = productList.entrySet().iterator();
+					while (iterator.hasNext())
+					{ 
+						Map.Entry<String, ArrayList<Object>> entry = iterator.next();
+						ArrayList<Object> product = (ArrayList<Object>) entry.getValue();
+						 productId = (String) product.get(0);
+				         price = (String) product.get(2);
+						 pr = Double.parseDouble(price);
+						 //System.out.println("after pr");
+						 qty = ( (Integer)product.get(3)).intValue();
+						 sql = String.format("insert into orderproduct values ("+orderId+","+productId+","+qty+","+pr+")");
+						 stmt.execute(sql);
+						 System.out.println("after execute sql");
+						 
+						 //rst2 = stmt.executeQuery("select productPrice from product where productId = " + productId);
+						 /*if(rst.next())
+						 {
+							 totalPrice = totalPrice + rst.getDouble(1);
+						 } */
+						 
+						 subtotal = qty*pr;
+						 ordertotal += subtotal;
+						 
+				         
+					}
+					//System.out.println("finish while");
+					stmt.execute("update ordersummary set totalAmount = " + totalPrice + " where orderId = " + orderId);
+					out.println("<h1>Your Order Summary</h1>");
+					rst2 = stmt.executeQuery("select product.productId, orderproduct.quantity, orderproduct.price, product.productName from orderproduct,product where orderproduct.productId = product.productId and orderId = " + orderId);
+					out.println("<table align=\"center\"><tr><th>Product Id</th><th>Product Name</th><th>Quantity</th><th>Price</th><th>Subtotal</th></tr>");
+					while (rst2.next())
+					{
+						pid = rst2.getInt(1);
+						qty2 = rst2.getInt(2);
+						price2 = rst2.getDouble(3);
+						pname = rst2.getString(4);
+						double subt = qty2*price2;
+						out.println("<tr><td>" + pid +"</td><td>" + pname + "</td><td align=\"center\">1</td><td align=\"right\">$" + price2 + "</td><td align=\"right\">$" + subt + "</td></tr></tr>");
+					}
+					out.println("<tr><td colspan=\"4\" align=\"right\"><b>Order Total</b></td><td aling=\"right\">$" + ordertotal +"</td></tr>");
+					out.println("</table>");
+					out.println("<h2>Transaction Approved. Thank you for your purchase!</h2>");
+					out.println("<h3>Your order reference number is: " + orderId +"</h3>");
+					out.println("<h4>Shipping to CustomerID: " + custId + " | Name: " + firstname + " " + lastname + "</h4>");
+					out.println("<br>----------------------------------------<br><h2>Payment status: Approved</h2>");
+					out.println("<h3>Paid on " + cardType + " -" + cardNumber.substring(cardNumber.length()-4, cardNumber.length()) + "</h3>");
+					out.println("----------------------------------------\n");
+					out.println("<h2><a href=\"index.jsp\">Back to Main Page</a></h2>");
+
+					session.removeAttribute("checkoutMessage");
+					productList.clear();
+				}
+				else
+				{
+					out.println("<th>Customer ID is incorrect!</th>");	
+				}
+				
+				con.close();
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+				out.println(e);
+			}
+		}
+	}
+
+	// Save order information to database
 
 
+		/*
+		// Use retrieval of auto-generated keys.
+		PreparedStatement pstmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);			
+		ResultSet keys = pstmt.getGeneratedKeys();
+		keys.next();
+		int orderId = keys.getInt(1);
+		*/
+
+	// Insert each item into OrderProduct table using OrderId from previous INSERT
+
+	// Update total amount for order record
+
+	// Here is the code to traverse through a HashMap
+	// Each entry in the HashMap is an ArrayList with item 0-id, 1-name, 2-quantity, 3-price
+
+	/*
+		Iterator<Map.Entry<String, ArrayList<Object>>> iterator = productList.entrySet().iterator();
+		while (iterator.hasNext())
+		{ 
+			Map.Entry<String, ArrayList<Object>> entry = iterator.next();
+			ArrayList<Object> product = (ArrayList<Object>) entry.getValue();
+			String productId = (String) product.get(0);
+	        String price = (String) product.get(2);
+			double pr = Double.parseDouble(price);
+			int qty = ( (Integer)product.get(3)).intValue();
+	            ...
+		}
+	*/
+
+	// Print out order summary
+
+	// Clear cart if order placed successfully
 %>
-</body>
-</html>
+</BODY>
+</HTML>

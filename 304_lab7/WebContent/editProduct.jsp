@@ -3,9 +3,10 @@
 <head>
 <%@ include file="jdbc.jsp" %>
 
-<title>Edit Product</title>
+<title>Don't Leaf Me</title>
 </head>
 <body>
+<h2> Edit Product</h2>
 <%
 try
 {
@@ -54,9 +55,8 @@ try
 
 	}
 	pstmt.executeUpdate();
-	out.println("<h1> Product has been updated. </h1>");
-	out.println("<h1><a href=\"manageProduct.jsp?id="+pid+"\">"+"Go to product</a></h2>");
-	out.println("<h1><a href=\"editProduct.jsp\">Return to product list</a></h2>");
+	out.println("<h2> Product has been updated. </h1>");
+	out.println("<h2><a href=\"manageProduct.jsp?id="+pid+"\">"+"Go to product</a></h2>");
 }
 catch(SQLException e)
 {
@@ -68,6 +68,6 @@ finally
 }
 
 %>
-
+<h2><a href="manageProduct.jsp">Back to product list</a></h2>
 </body>
 </html>

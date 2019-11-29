@@ -37,7 +37,7 @@ if(session.getAttribute("authenticatedUser") != null)
 
 <h2 align="center"><a href="manageProduct.jsp">Manage Products</a></h2>
 
-<h2 align="center"><a href="dbRestore.jsp">Restore Database</a></h2>
+<h2 align="center"><a href="warehouse.jsp">Warehouses</a></h2>
 
 <h2 align="center"><a href="logout.jsp">Log out</a></h2>
 

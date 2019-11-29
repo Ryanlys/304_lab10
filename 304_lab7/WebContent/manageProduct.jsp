@@ -131,7 +131,7 @@ else
 }
 %>
 
-
+<h2><a href="adminIndex.jsp">Back to home page</a></h2>
 
 </body>
 </html>
