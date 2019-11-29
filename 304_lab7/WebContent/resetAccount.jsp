@@ -24,7 +24,7 @@
 			<table style="display:inline">
 			<tr>
 				<td><div align="right"><font face="Arial, Helvetica, sans-serif" size="2">Username:</font></div></td>
-				<td><input type="text" name="username"  size=20 maxlength=10 align="center"></td>
+				<td><input type="text" name="username"  size=20 maxlength=20 align="center"></td>
 			</tr>
 			<tr>
 				<td><div align="right"><font face="Arial, Helvetica, sans-serif" size="2">Email:</font></div></td>
