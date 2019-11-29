@@ -23,7 +23,7 @@
 <h1 align="center">Welcome to Don't Leaf Me</h1>
 
 
-
+<h2 align="center"><a href="AboutUs.jsp">About Us</a></h2>
 <h2 align="center"><a href="listprod.jsp">Begin Shopping</a></h2>
 <%
 	if(session.getAttribute("authenticatedUser") != null)

@@ -48,7 +48,8 @@ CREATE TABLE ordersummary (
     shiptoState         VARCHAR(20),
     shiptoPostalCode    VARCHAR(20),
     shiptoCountry       VARCHAR(40),
-    customerId          INT,
+    customerId          INT,	
+    status 				VARCHAR(40),
     PRIMARY KEY (orderId),
     FOREIGN KEY (customerId) REFERENCES customer(customerid)
         ON UPDATE CASCADE ON DELETE CASCADE 
@@ -152,16 +153,17 @@ INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Grey
 
 INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password, admin) VALUES ('Arnold', 'Anderson', 'a.anderson@gmail.com', '204-111-2222', '103 AnyWhere Street', 'Winnipeg', 'MB', 'R3X 45T', 'Canada', 'arnold' , 'test', 1);
 INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password, admin) VALUES ('Bobby', 'Brown', 'bobby.brown@hotmail.ca', '572-342-8911', '222 Bush Avenue', 'Boston', 'MA', '22222', 'United States', 'bobby' , 'bobby', 1);
+INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password, admin) VALUES ('test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test' , 'test', 1);
 
 
 DECLARE @orderId int
-INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (1, '2019-10-15 10:25:55', 8.10)
+INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (1, '2019-10-15 10:25:55', 8.10);
 SELECT @orderId = @@IDENTITY
-INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId, 4, 2, 2.70)
-INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId, 6, 1, 2.70)
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId, 4, 2, 2.70);
+INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId, 6, 1, 2.70);
 
 DECLARE @orderId int
-INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (2, '2019-10-16 18:00:00', 13.50)
+INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (2, '2019-10-16 18:00:00', 13.50);
 SELECT @orderId = @@IDENTITY
 INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId, 7, 5, 2.70);
 

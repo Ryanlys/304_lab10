@@ -37,7 +37,6 @@ if(status == null)
 	{	
 		
 		Statement stmt = con.createStatement();
-	
 		ResultSet rst = stmt.executeQuery(sql);
 		PreparedStatement pstmt = con.prepareStatement("select productId, quantity from orderproduct where orderId = ?");
 		while(rst.next())

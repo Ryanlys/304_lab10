@@ -45,6 +45,7 @@ try
 	//System.out.println("before while");
 	while(rst.next())
 	{
+		System.out.println(rst.getInt(1));
 		out.println("<table border=\"1\"><tr><th>Order ID</th><th>Order Date</th><th>Customer ID</th><th>CustomerName</th><th>Total Amount</th></tr>");
 		out.println("<tr><td>" + rst.getInt(1) + "</td><td>" + rst.getDate(2) + "</td><td>" + rst.getInt(3) + "</td><td>" + rst.getString(4) + " " + rst.getString(5) + "</td><td>" + currFormat.format(rst.getDouble(6))+ "</td></tr><tr align=\"right\"><td colspan=\"5\"><table border=\"1\">");
 		pstmt.setInt(1,rst.getInt(1));

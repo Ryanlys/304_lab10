@@ -42,12 +42,10 @@ if (rst.next())
 	out.println("<h1>" + rst.getString(2) + "</h1>");
 	out.println("<table><tr>");
 	out.println("<th>Id</th><td>"+productId+"</td></tr><tr><th>Price</th><td>"+currFormat.format(rst.getDouble(3))+"</td></tr><tr><th>Product Description:   </th><td>" + rst.getString(4) + "</td><tr>");
-	System.out.println("product info should have been displayed");
 	if(hasImage)
 	{
 		
 		out.println("<img src=\""+imageURL+"\">");
-		System.out.println(hasImage + "  defying logic");
 	}
 	sql = "select productImage, productName, productPrice from product where productId = " + productId;
 	ResultSet rst2 = stmt.executeQuery(sql);
@@ -57,7 +55,6 @@ if (rst.next())
 		out.println("<img src=\"displayImage.jsp?id="+productId+"\">");
 	}
 	out.println("</table>");
-	System.out.println("Images should have been displayed");
 	out.println("<h3><a href=\"listprod.jsp\">Continue Shopping</a></h3>");
 	out.println("<h3><a href=\"addcart.jsp?id=" + productId + "&name=" + rst2.getString(2) + "&price=" + rst2.getDouble(3)+"\">Add to Cart</a>");
 	
