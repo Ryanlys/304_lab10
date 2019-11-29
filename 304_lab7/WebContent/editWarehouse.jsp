@@ -12,6 +12,7 @@ try
 {
 	session = request.getSession(true);
 	String whid = (String)session.getAttribute("whid");
+	String whName = (String)request.getParameter("whName");
 	//String pid = (String)session.getAttribute("pidToEdit");
 	//System.out.println("pid = "+pid);
 	String pid = request.getParameter("pid");
@@ -22,7 +23,16 @@ try
 	pstmt.setString(1,inven);
 	pstmt.setString(2,pid);
 	pstmt.executeUpdate();
-	out.println("<h2> Product has been updated. </h1>");
+	if (!whName.isEmpty())
+	{
+		sql = "update warehouse set warehouseName = ? where warehouseId = ?";
+		pstmt = con.prepareStatement(sql);
+		pstmt.setString(1,whName);
+		pstmt.setString(2,whid);
+		pstmt.executeUpdate();
+	}
+
+	out.println("<h2> Warehouse has been updated. </h1>");
 	out.println("<h2><a href=\"manageWarehouse.jsp?id="+whid+"\">"+"Go to warehouse</a></h2>");
 	out.println("<h2><a href=\"warehouse.jsp\">Return to warehouse list</a></h2>");
 }

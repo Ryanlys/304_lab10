@@ -14,15 +14,21 @@
 
 <%
 String id = request.getParameter("id");
-getConnection();
 session.setAttribute("whid",id);
+id = (String)session.getAttribute("whid");
+
+getConnection();
+String sql;
+String whName = request.getParameter("whName");
+PreparedStatement pstmt;
+
 //Note: Forces loading of SQL Server driver
 NumberFormat currFormat = NumberFormat.getCurrencyInstance();
-String sql = "select * from warehouse where warehouseId =" + id;
-PreparedStatement pstmt = con.prepareStatement(sql);
+sql = "select warehouseName,warehouseId from warehouse where warehouseId =" + id;
+pstmt = con.prepareStatement(sql);
 ResultSet rst = pstmt.executeQuery();
-rst.next();
-out.println("<h2>" + rst.getString(2) + "</h2>");
+System.out.println(rst.next());
+out.println("<h2>" + rst.getString(1) + "</h2>");
 sql = "select product.productId, quantity, price, productName from productinventory,product where productinventory.productId = product.productId and warehouseId =" + id;
 pstmt = con.prepareStatement(sql);
 rst = pstmt.executeQuery();
@@ -43,7 +49,15 @@ out.println("<td><input type=\"text\" name=\"inven\" size=10 maxlength=\"50\"></
 out.println("</table>");
 out.println("<input class=\"submit\" type=\"submit\" name=\"Submit2\" value=\"Edit\"> <input type=\"reset\" value=\"Reset\">");
 out.println("</form>");
-	
+
+out.println("<form name=\"MyForm\" method=post action=\"editWarehouse.jsp\">");
+out.println("<table style=\"display:inline\">");
+out.println("<tr>");
+out.println("<td><div align=\"right\"><font face=\"Arial, Helvetica, sans-serif\" size=\"2\">Warehouse Name:</font></div></td>");
+out.println("<td><input type=\"text\" name=\"whName\"  size=10 maxlength=10></td></tr> ");
+out.println("</table>");
+out.println("<input class=\"submit\" type=\"submit\" name=\"Submit2\" value=\"Update\"> <input type=\"reset\" value=\"Reset\">");
+out.println("</form>");
 
 %>
 
