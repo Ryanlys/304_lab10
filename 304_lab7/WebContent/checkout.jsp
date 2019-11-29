@@ -15,7 +15,7 @@
 
 	<h3>Enter your Customer ID and Password to complete the transaction:</h3>
 	<table style="display:inline">
-		<tr><td>Customer ID:</td><td><input type="text" name="customerId" size="20"></td></tr>
+		<tr><td>Username:</td><td><input type="text" name="username" size="20"></td></tr>
 		<tr><td>Password:</td><td><input type="password" name="password" size="20"></td></tr>
 	</table>
 

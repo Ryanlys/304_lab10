@@ -19,9 +19,9 @@
 <% 
 	session = request.getSession(true);
 
-	// Get customer id
-	String custId = request.getParameter("customerId");
+	String username = request.getParameter("username");
 	String password = request.getParameter("password");
+	String custId;
 
 	String cardNumber = request.getParameter("cardNumber");
 	int expMonth = Integer.parseInt(request.getParameter("expMonth"));
@@ -93,21 +93,29 @@
 				String firstname,lastname,add,city,state,postal,country;
 
 				NumberFormat currFormat = NumberFormat.getCurrencyInstance();
-				Connection con = DriverManager.getConnection(url, uid, pw);
+				getConnection();
 				Statement stmt = con.createStatement();
 				//System.out.println("Connecting to db...");
 				
-				ResultSet rst = stmt.executeQuery("select firstName, lastName, address, city, state, postalCode, country from customer where customerId = " + custId);
+				// Check if another user with the same username already exists in db
+				PreparedStatement query1 = con.prepareStatement("SELECT * FROM customer WHERE userid = ? AND password = ?");
+				query1.setString(1, username);
+				query1.setString(2, password);
+				ResultSet rst = query1.executeQuery();
+				
 				if(rst.next())
 				{
 					//System.out.println(" if rst.next() ran");
-					firstname = rst.getString(1);
-					lastname = rst.getString(2);
-					add = rst.getString(3);
-					city = rst.getString(4);
-					state = rst.getString(5);
-					postal = rst.getString(6);
-					country = rst.getString(7);
+					firstname = rst.getString("firstName");
+					lastname = rst.getString("lastName");
+					add = rst.getString("address");
+					city = rst.getString("city");
+					state = rst.getString("state");
+					postal = rst.getString("postalCode");
+					country = rst.getString("country");
+					custId = rst.getString("customerId");
+
+					
 					ResultSet rst2;
 					
 					//System.out.println("at Date date = new Date now");
@@ -135,7 +143,7 @@
 					ResultSet keys = pstmt.executeQuery();
 					keys.next();
 					int orderId = keys.getInt(1);
-					System.out.println(orderId);
+					System.out.println(orderId); 
 					
 					String productId = "";
 					String price= "";
@@ -205,7 +213,8 @@
 				}
 				else
 				{
-					out.println("<th>Customer ID is incorrect!</th>");	
+					session.setAttribute("checkoutMessage", "We couldn't find you on our database. Please re-enter your credentials or if you haven't, why don't you become a member? <a href=\"signup.jsp\">Sign up here!</a>");
+					response.sendRedirect("checkout.jsp");
 				}
 				
 				con.close();
