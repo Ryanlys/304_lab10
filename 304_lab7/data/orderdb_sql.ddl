@@ -35,7 +35,7 @@ CREATE TABLE paymentmethod (
     paymentExpiryDate   DATE,
     customerId          INT,
     PRIMARY KEY (paymentMethodId),
-    FOREIGN KEY (customerId) REFERENCES customer(customerid)
+    FOREIGN KEY (customerId) REFERENCES customer(customerId)
         ON UPDATE CASCADE ON DELETE CASCADE 
 );
 
@@ -51,7 +51,7 @@ CREATE TABLE ordersummary (
     customerId          INT,	
     status 				VARCHAR(40),
     PRIMARY KEY (orderId),
-    FOREIGN KEY (customerId) REFERENCES customer(customerid)
+    FOREIGN KEY (customerId) REFERENCES customer(customerId)
         ON UPDATE CASCADE ON DELETE CASCADE 
 );
 
@@ -80,8 +80,7 @@ CREATE TABLE orderproduct (
     price               DECIMAL(10,2),  
     PRIMARY KEY (orderId, productId),
     FOREIGN KEY (orderId) REFERENCES ordersummary(orderId)
-        ON UPDATE CASCADE ON DELETE NO ACTION,
-
+        ON UPDATE CASCADE ON DELETE NO ACTION
 );
 
 CREATE TABLE incart (
@@ -150,10 +149,19 @@ INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Gink
 INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Katsura', 3, ' ',1.70);
 INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Eastern Redbud', 4, ' ',0.80);
 INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Grey Alder', 4, ' ',0.50);
+INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Sugar Maple', 1, ' ',2.69);
+INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Sycamore Maple', 1, ' ',29.99);
+INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('White Oak', 1, ' ',49.99);
+INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Ginkgo', 2, ' ',14.90);
+INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Katsura', 3, ' ',0.89);
+INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Eastern Redbud', 4, ' ',31.99);
+INSERT product(productName, categoryId, productDesc, productPrice) VALUES ('Grey Alder', 4, ' ',7.99);
+
 
 INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password, admin) VALUES ('Arnold', 'Anderson', 'a.anderson@gmail.com', '204-111-2222', '103 AnyWhere Street', 'Winnipeg', 'MB', 'R3X 45T', 'Canada', 'arnold' , 'test', 1);
 INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password, admin) VALUES ('Bobby', 'Brown', 'bobby.brown@hotmail.ca', '572-342-8911', '222 Bush Avenue', 'Boston', 'MA', '22222', 'United States', 'bobby' , 'bobby', 1);
 INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password, admin) VALUES ('test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test' , 'test', 1);
+
 
 
 DECLARE @orderId int
