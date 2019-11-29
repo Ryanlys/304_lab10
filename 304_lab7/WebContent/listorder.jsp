@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>This Grocery Order List</title>
+<title>Order List</title>
 </head>
 <body>
 

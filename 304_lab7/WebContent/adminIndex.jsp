@@ -31,6 +31,8 @@ if(session.getAttribute("authenticatedUser") != null)
 
 <h2 align="center"><a href="admin.jsp">Financial Report</a></h2>
 
+<h2 align="center"><a href="orderStatus.jsp">Change Order Status</a></h2>
+
 <h2 align="center"><a href="addProduct.jsp">Add Product</a></h2>
 
 <h2 align="center"><a href="manageProduct.jsp">Manage Products</a></h2>
