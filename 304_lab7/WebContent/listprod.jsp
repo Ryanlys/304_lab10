@@ -84,9 +84,12 @@ catch (Exception e)
 {
 	e.printStackTrace();
 }
-// Useful code for formatting currency values:
-// NumberFormat currFormat = NumberFormat.getCurrencyInstance();
-// out.println(currFormat.format(5.0);	// Prints $5.00
+
+	if(session.getAttribute("authenticatedUser") != null && (int)session.getAttribute("admin") == 1)
+		out.println("<h2><a href=\"adminIndex.jsp\">Back To Main</a></h2>");
+	else 
+		out.println("<h2><a href=\"index.jsp\">Back To Main</a></h2>");
+
 %>
 
 </body>
