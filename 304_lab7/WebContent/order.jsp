@@ -19,9 +19,8 @@
 
 <title>Don't Leaf Me</title>
 </head>
-<body align="center">
-<h2> Edit order details</h2>
-<%
+<body>
+ <%
 
 	session = request.getSession(true);
 
@@ -93,11 +92,7 @@
 			//System.out.println("cart is not empty");
 			try
 			{
-				String url = "jdbc:sqlserver://sql04.ok.ubc.ca:1433;DatabaseName=db_nhendrad;";
-				String uid = "nhendrad";
-				String pw = "34089243";
 				String firstname,lastname,add,city,state,postal,country;
-
 				NumberFormat currFormat = NumberFormat.getCurrencyInstance();
 				getConnection();
 				Statement stmt = con.createStatement();
@@ -179,7 +174,7 @@
 
 					out.println("<h1>Your Order Summary</h1>");
 					rst2 = stmt.executeQuery("select product.productId, orderproduct.quantity, orderproduct.price, product.productName from orderproduct,product where orderproduct.productId = product.productId and orderId = " + orderId);
-					out.println("<table align=\"center\"><tr><th>Product Id</th><th>Product Name</th><th>Quantity</th><th>Price</th><th>Subtotal</th></tr>");
+					out.println("<table align=\"left\"><tr><th>Product Id</th><th>Product Name</th><th>Quantity</th><th>Price</th><th>Subtotal</th></tr>");
 					while (rst2.next())
 					{
 						pid = rst2.getInt(1);
@@ -187,9 +182,10 @@
 						price2 = rst2.getDouble(3);
 						pname = rst2.getString(4);
 						double subt = qty2*price2;
-						out.println("<tr><td>" + pid +"</td><td>" + pname + "</td><td align=\"center\">1</td><td align=\"right\">" + currFormat.format(price2) + "</td><td align=\"right\">" + currFormat.format(subt) + "</td></tr></tr>");
+						out.println("<tr><td>" + pid +"</td><td>" + pname + "</td><td>"+qty2+"</td><td>" + currFormat.format(price2) + "</td><td>" + currFormat.format(subt) + "</td></tr>");
 					}
-					out.println("<tr><td colspan=\"4\" align=\"right\"><b>Order Total</b></td><td aling=\"right\">" + currFormat.format(ordertotal) +"</td></tr>");
+
+					out.println("<tr><td><b>Order Total</b></td><td align=>" + currFormat.format(ordertotal) +"</td></tr>");
 					out.println("</table>");
 					out.println("<h2>Transaction Approved. Thank you for your purchase!</h2>");
 					out.println("<h3>Your order reference number is: " + orderId +"</h3>");
