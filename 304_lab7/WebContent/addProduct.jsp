@@ -84,6 +84,7 @@ else
 	<input class="submit" type="submit" name="Submit2" value="Add">
 </form>
 <h2><a href="manageProduct.jsp">Back to product list</a></h2>
+<h2><a href="adminIndex.jsp">Back to Homepage</a></h2>
 
 </body>
 </html>

@@ -44,6 +44,10 @@ out.println("</table>");
 } finally {
 	closeConnection();
 }
+if(session.getAttribute("authenticatedUser") != null && (int)session.getAttribute("admin") == 1)
+	out.println("<h2><a href=\"adminIndex.jsp\">Back To Home Page</a></h2>");
+else 
+	out.println("<h2><a href=\"index.jsp\">Back To Home Page</a></h2>");
 
 %>
 

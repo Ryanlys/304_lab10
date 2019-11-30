@@ -67,11 +67,11 @@ try
 	session = request.getSession(true);
 	if((int)session.getAttribute("admin")==1)
 	{
-		out.println("<h2><a href=\"adminIndex.jsp\">Back to Index</a></h2>");
+		out.println("<h2><a href=\"adminIndex.jsp\">Back to Homepage</a></h2>");
 	}
 	else
 	{
-		out.println("<h2><a href=\"index.jsp\">Back to Index</a></h2>");
+		out.println("<h2><a href=\"index.jsp\">Back to Homepage</a></h2>");
 	}
 
 // For each product create a link of the form

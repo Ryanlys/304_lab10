@@ -25,11 +25,11 @@ Don’t Leaf Me promotes a deeper appreciation to nature so that when someone se
 
 <%
 	if(session.getAttribute("authenticatedUser") != null && (int)session.getAttribute("admin") == 1)
-		out.println("<h2><a href=\"adminIndex.jsp\">Back To Main</a></h2>");
+		out.println("<h2><a href=\"adminIndex.jsp\">Back To Home Page</a></h2>");
 	else 
-		out.println("<h2><a href=\"index.jsp\">Back To Main</a></h2>");
+		out.println("<h2><a href=\"index.jsp\">Back To Home Page</a></h2>");
 %>
-
+<h2><a href="listprod.jsp">Our products</a></h2>
 
 </body>
 </html>
