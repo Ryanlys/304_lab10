@@ -22,7 +22,7 @@ Don’t Leaf Me promotes a deeper appreciation to nature so that when someone se
 </blockquote>
 
 <%
-	if(session.getAttribute("authenticatedUser") != null && session.getAttribute("admin") == "1")
+	if(session.getAttribute("authenticatedUser") != null && (int)session.getAttribute("admin") == 1)
 		out.println("<h2><a href=\"adminIndex.jsp\">Back To Main</a></h2>");
 	else 
 		out.println("<h2><a href=\"index.jsp\">Back To Main</a></h2>");
