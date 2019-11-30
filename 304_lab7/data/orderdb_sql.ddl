@@ -181,12 +181,15 @@ UPDATE Product SET productImageURL = 'img/7.jpg' WHERE ProductId = 7;
 INSERT INTO warehouse(warehouseName) VALUES ('Main');
 INSERT INTO warehouse(warehouseName) VALUES ('Backup');
 
+
 INSERT INTO productinventory (productId,warehouseId,quantity,price) VALUES (1,1,89,2.70);
-INSERT INTO productinventory (productId,warehouseId,quantity,price) VALUES (2,1,33,12.70);
-INSERT INTO productinventory (productId,warehouseId,quantity,price) VALUES (3,1,259,45.0);
-INSERT INTO productinventory (productId,warehouseId,quantity,price) VALUES (4,1,12,23.0);
-INSERT INTO productinventory (productId,warehouseId,quantity,price) VALUES (5,1,234,1.70);
-INSERT INTO productinventory (productId,warehouseId,quantity,price) VALUES (6,1,68,0.80);
-INSERT INTO productinventory (productId,warehouseId,quantity,price) VALUES (7,1,123,0.50);
-INSERT INTO productinventory (productId,warehouseId,quantity,price) VALUES (6,2,15,0.80);
-INSERT INTO productinventory (productId,warehouseId,quantity,price) VALUES (7,2,12,0.50);
+INSERT INTO productinventory (productId,warehouseId,quantity,price) VALUES (2,1,33,2.70);
+INSERT INTO productinventory (productId,warehouseId,quantity,price) VALUES (3,1,259,2.70);
+INSERT INTO productinventory (productId,warehouseId,quantity,price) VALUES (4,1,12,2.70);
+INSERT INTO productinventory (productId,warehouseId,quantity,price) VALUES (5,1,234,2.70);
+INSERT INTO productinventory (productId,warehouseId,quantity,price) VALUES (6,1,68,2.70);
+INSERT INTO productinventory (productId,warehouseId,quantity,price) VALUES (7,1,123,2.70);
+INSERT INTO productinventory (productId,warehouseId,quantity,price) VALUES (6,2,15,2.70);
+INSERT INTO productinventory (productId,warehouseId,quantity,price) VALUES (7,2,12,2.70);
+
+UPDATE Product SET productImage = 0x687474703a2f2f7777772e63616e616469616e74726565746f7572732e6f72672f74726565732d766572322f64657461696c732f63657263692d6a61706f6e2f63657263692d6a61706f6e2d74726565312e68746d6c WHERE ProductId = 5;
