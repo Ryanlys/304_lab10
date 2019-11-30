@@ -155,18 +155,6 @@ INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state
 INSERT INTO customer (firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password, admin) VALUES ('test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test', 'test' , 'test', 1);
 
 
-
-DECLARE @orderId int
-INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (1, '2019-10-15 10:25:55', 8.10);
-SELECT @orderId = @@IDENTITY
-INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId, 4, 2, 2.70);
-INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId, 6, 1, 2.70);
-
-DECLARE @orderId int
-INSERT INTO ordersummary (customerId, orderDate, totalAmount) VALUES (2, '2019-10-16 18:00:00', 13.50);
-SELECT @orderId = @@IDENTITY
-INSERT INTO orderproduct (orderId, productId, quantity, price) VALUES (@orderId, 7, 5, 2.70);
-
 -- New SQL DDL for lab 8
 UPDATE Product SET productImageURL = 'img/1.jpg' WHERE ProductId = 1;
 UPDATE Product SET productImageURL = 'img/2.jpg' WHERE ProductId = 2;

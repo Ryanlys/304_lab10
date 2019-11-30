@@ -23,7 +23,7 @@ try
 	pstmt.setString(1,inven);
 	pstmt.setString(2,pid);
 	pstmt.executeUpdate();
-	if (!whName.isEmpty())
+	if (whName != null)
 	{
 		sql = "update warehouse set warehouseName = ? where warehouseId = ?";
 		pstmt = con.prepareStatement(sql);

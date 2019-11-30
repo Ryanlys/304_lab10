@@ -10,7 +10,7 @@ try
 {
 	getConnection();
 	Statement stmt = con.createStatement();
-	ResultSet rst = stmt.executeQuery("select orderId from orderproduct");
+	ResultSet rst = stmt.executeQuery("select * from ordersummary where orderId = 1");
 	System.out.println(rst.next());
 
 }
