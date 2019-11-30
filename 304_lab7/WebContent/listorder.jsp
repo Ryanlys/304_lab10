@@ -63,7 +63,7 @@ String sql;
 			closeConnection();
 		}
 %>
-<h2><a href=\"adminIndex.jsp\">Back to Homepage</a></h2>
+<h2><a href="adminIndex.jsp">Back to Homepage</a></h2>
 </body>
 </html>
 

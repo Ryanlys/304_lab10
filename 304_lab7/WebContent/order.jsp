@@ -175,6 +175,12 @@
 					out.println("<h1>Your Order Summary</h1>");
 					rst2 = stmt.executeQuery("select product.productId, orderproduct.quantity, orderproduct.price, product.productName from orderproduct,product where orderproduct.productId = product.productId and orderId = " + orderId);
 					out.println("<table align=\"left\"><tr><th>Product Id</th><th>Product Name</th><th>Quantity</th><th>Price</th><th>Subtotal</th></tr>");
+					
+					sql = "select quantity from orderproduct where productId = ?";
+					PreparedStatement pstmt2 = con.prepareStatement(sql);
+					ResultSet rst3;
+					int newQty = 0;
+					
 					while (rst2.next())
 					{
 						pid = rst2.getInt(1);
@@ -183,6 +189,16 @@
 						pname = rst2.getString(4);
 						double subt = qty2*price2;
 						out.println("<tr><td>" + pid +"</td><td>" + pname + "</td><td>"+qty2+"</td><td>" + currFormat.format(price2) + "</td><td>" + currFormat.format(subt) + "</td></tr>");
+						pstmt2.setString(1,Integer.toString(pid));
+						rst3 = pstmt.executeQuery();
+						sql = "update productinventory set quantity = ? where productId = ?";
+						rst3.next();
+						newQty = rst3.getInt(1) - qty2;
+						pstmt2.close();
+						pstmt2 = con.prepareStatement(sql);
+						pstmt2.setInt(1,newQty);
+						pstmt2.setString(2,Integer.toString(pid));
+						pstmt2.executeUpdate();
 					}
 
 					out.println("<tr><td><b>Order Total</b></td><td align=>" + currFormat.format(ordertotal) +"</td></tr>");
@@ -193,8 +209,14 @@
 					out.println("<br>----------------------------------------<br><h2>Payment status: Approved</h2>");
 					out.println("<h3>Paid on " + cardType + " -" + cardNumber.substring(cardNumber.length()-4, cardNumber.length()) + "</h3>");
 					out.println("----------------------------------------\n");
-					out.println("<h2><a href=\"index.jsp\">Back to Main Page</a></h2>");
-
+					if((int)session.getAttribute("admin")==1)
+					{
+						out.println("<h2><a href=\"adminIndex.jsp\">Back to Home Page</a></h2>");
+					}
+					else
+					{	
+						out.println("<h2><a href=\"index.jsp\">Back to Home Page</a></h2>");
+					}
 					session.removeAttribute("checkoutMessage");
 					productList.clear();
 				}
@@ -204,15 +226,20 @@
 					response.sendRedirect("checkout.jsp");
 				}
 				
-				con.close();
+				
 			}
 			catch (Exception e)
 			{
 				e.printStackTrace();
-				out.println(e);
+				
+			}
+			finally
+			{
+				con.close();
 			}
 		}
 	}
+	
 %>
 </BODY>
 </HTML>
