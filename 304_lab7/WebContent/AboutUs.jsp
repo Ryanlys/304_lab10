@@ -21,6 +21,8 @@ The leaves will be collected from many different trees in Canada and thus will c
 Don’t Leaf Me promotes a deeper appreciation to nature so that when someone sees a leaf on the ground, they would stop and acknowledge its beautiful appearance at that moment in fall.
 </blockquote>
 
+<h5>P.S. They're all $2.70!!!</h5>
+
 <%
 	if(session.getAttribute("authenticatedUser") != null && (int)session.getAttribute("admin") == 1)
 		out.println("<h2><a href=\"adminIndex.jsp\">Back To Main</a></h2>");
