@@ -9,16 +9,17 @@
 <%@ page language="java" import="java.io.*,java.sql.*"%>
 <%@ include file="jdbc.jsp" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF8"%>
+
 <!DOCTYPE html>
 <%@ page import="java.sql.*,java.net.URLEncoder" %>
 <%@ page import="java.text.NumberFormat" %>
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF8"%>
+
 <html>
 <head>
 
 <title>Don't Leaf Me</title>
 </head>
-<body>
+<body align="center">
 <h2> Edit order details</h2>
 <%
 
@@ -148,7 +149,7 @@
 					int qty = 0;
 					
 					int pid,qty2;
-					double price2;
+					Double price2 = new Double(0);
 					String pname;
 					
 					Double subtotal = new Double(0);
@@ -186,7 +187,7 @@
 						price2 = rst2.getDouble(3);
 						pname = rst2.getString(4);
 						double subt = qty2*price2;
-						out.println("<tr><td>" + pid +"</td><td>" + pname + "</td><td align=\"center\">1</td><td align=\"right\">" + price2 + "</td><td align=\"right\">" + currFormat.format(subt) + "</td></tr></tr>");
+						out.println("<tr><td>" + pid +"</td><td>" + pname + "</td><td align=\"center\">1</td><td align=\"right\">" + currFormat.format(price2) + "</td><td align=\"right\">" + currFormat.format(subt) + "</td></tr></tr>");
 					}
 					out.println("<tr><td colspan=\"4\" align=\"right\"><b>Order Total</b></td><td aling=\"right\">" + currFormat.format(ordertotal) +"</td></tr>");
 					out.println("</table>");
@@ -216,42 +217,6 @@
 			}
 		}
 	}
-
-	// Save order information to database
-
-
-		/*
-		// Use retrieval of auto-generated keys.
-		PreparedStatement pstmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);			
-		ResultSet keys = pstmt.getGeneratedKeys();
-		keys.next();
-		int orderId = keys.getInt(1);
-		*/
-
-	// Insert each item into OrderProduct table using OrderId from previous INSERT
-
-	// Update total amount for order record
-
-	// Here is the code to traverse through a HashMap
-	// Each entry in the HashMap is an ArrayList with item 0-id, 1-name, 2-quantity, 3-price
-
-	/*
-		Iterator<Map.Entry<String, ArrayList<Object>>> iterator = productList.entrySet().iterator();
-		while (iterator.hasNext())
-		{ 
-			Map.Entry<String, ArrayList<Object>> entry = iterator.next();
-			ArrayList<Object> product = (ArrayList<Object>) entry.getValue();
-			String productId = (String) product.get(0);
-	        String price = (String) product.get(2);
-			double pr = Double.parseDouble(price);
-			int qty = ( (Integer)product.get(3)).intValue();
-	            ...
-		}
-	*/
-
-	// Print out order summary
-
-	// Clear cart if order placed successfully
 %>
 </BODY>
 </HTML>

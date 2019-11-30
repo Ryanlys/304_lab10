@@ -21,7 +21,7 @@
 
 		<br>
 		<form name="SignUp" method=post action="validateSignup.jsp">
-			<h5>Step 1: Tell us who you are!</h5>
+			<h3>Step 1: Tell us who you are!</h3>
 			<table style="display:inline">
 				<tr>
 					<td><div align="right"><font face="Arial, Helvetica, sans-serif" size="2">First Name:</font></div></td>
@@ -33,7 +33,7 @@
 				</tr>
 			</table>
 
-			<h5>Step 2: How shall we reach out to you?</h5>
+			<h3>Step 2: How shall we reach out to you?</h3>
 			<table style="display:inline">
 				<tr>
 					<td><div align="right"><font face="Arial, Helvetica, sans-serif" size="2">Email:</font></div></td>
@@ -45,7 +45,7 @@
 				</tr>
 			</table>
 
-			<h5>Step 3: Where do you live?</h5>
+			<h3>Step 3: Where do you live?</h3>
 			<table style="display:inline">
 				<tr>
 					<td><div align="right"><font face="Arial, Helvetica, sans-serif" size="2">Address</font></div></td>
@@ -69,7 +69,7 @@
 				</tr>
 			</table>
 
-			<h5>Step 4: Now your login credentials...</h5>
+			<h3>Step 4: Now your login credentials...</h3>
 			<table style="display:inline">
 				<tr>
 					<td><div align="right"><font face="Arial, Helvetica, sans-serif" size="2">Username:</font></div></td>
@@ -85,8 +85,8 @@
 				</tr>
 			</table>
 			
-			<h5>Step 5: Should we make you an admin?</h5>
-			<h6>(Leave blank for regular members, or ask an admin to provide their login information to you so you become an admin)</h6>
+			<h3>Step 5: Should we make you an admin?</h3>
+			<h4>(Leave blank for regular members, or ask an admin to provide their login information to you so you become an admin)</h4>
 			<table style="display:inline">
 				<tr>
 					<td><div align="right"><font face="Arial, Helvetica, sans-serif" size="2">Admin ID:</font></div></td>
