@@ -2,8 +2,7 @@
 <%@ page import="java.util.ArrayList" %>
 
 <%
-// Get the current list of products
-
+	// Get the current list of products
 	if (session.getAttribute("authenticatedUser") != null) {
 
 	@SuppressWarnings({"unchecked"})
@@ -11,29 +10,17 @@
 	
 	String id = request.getParameter("id");
 	String quantity = request.getParameter("quantity");
-	
-	int q = 1;
-	
-	try {
-		q = Integer.parseInt(quantity);
-	} catch (NumberFormatException e){
-		//out.println("error");
-	}
+	String price = request.getParameter("productPrice");
+	String name = request.getParameter("productName");
 	
 	ArrayList<Object> product;
 	
-	// Get product information
-	
-	if (id == null) {
-		productList.remove(null);
-	}
-	
 	if (productList.containsKey(id)) {
-		product = (ArrayList<Object>) productList.get(id);
-		product.set(3, q);
+		// Remove item from cart
+		productList.remove(id);
+
+		// Re-add the item with the updated amount
+		response.sendRedirect("addcart.jsp?id=" + id + "&name=" + name + "&price=" + price + "&quantity=" + quantity);
 	}
-	
-	session.setAttribute("productList", productList);
 }
 %>
-<jsp:forward page="showcart.jsp" />
