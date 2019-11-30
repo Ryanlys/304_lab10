@@ -5,7 +5,6 @@
 
 </head>
 	<body align="center">
-		<%@ include file="auth.jsp"%>
 		<%@ page import="java.text.NumberFormat" %>
 		<%@ include file="jdbc.jsp" %>
 

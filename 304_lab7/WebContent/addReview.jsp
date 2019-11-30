@@ -63,12 +63,6 @@
 		<form method="get" action="submitReview.jsp" style="display:block"> 
 			<table style="display:inline">
 				<tr>
-					<td>Customer ID: <input name="customerId" value="<%=customerId%>" disabled></input></td>
-				</tr>
-				<tr>
-					<td>Product ID: <input name="productId" value="<%=productId%>" disabled></input></td>
-				</tr>
-				<tr>
 					<td><h3>How would you rate this product in general? (1 = awful, 5 = my money was well spent)</h3></td>
 				</tr>
 				<tr>
@@ -83,7 +77,7 @@
 					</td>
 				</tr>
 				<tr>
-					<td colspan='2'><h3>People love detailed reviews, so tell 'em more! (Optional, max. 1000 chars)</h3></td>
+					<td colspan='2'><h3>People love detailed reviews so tell 'em more! (Optional, max. 1000 chars)</h3></td>
 				</tr>
 				<tr>
 					<td colspan='2'><textarea maxlength="1000" name="reviewDescription"></textarea></td>

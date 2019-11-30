@@ -70,20 +70,13 @@ else
 		
 		out.print("<td><a href=\"RemoveCart.jsp?id=" + product.get(0) + "\">Remove From Cart</a>");
 
-// 		String link = "ChangeQuantity.jsp?id=" + product.get(0) + "&";
+		// Update quantity section ---
+ 		out.println("<td><form name=\"updateQuantity\" method=\"post\" action=\"ChangeQuantity.jsp?id=" + product.get(0) + "&productName=" + product.get(1) + "&productPrice=" + product.get(2) + "\">");
+ 		out.println("<input type=\"number\" name=\"quantity\" min=\"1\">");
 		
-// 		out.print("<td> <form action=\"" + link + "\">");
- 		out.print("<td><form> <input type=\"number\" name=\"quantity\" min=\"1\"> </form>");
-// 		out.print("<input type=\"submit\" value=\"update\"></form>");
+		out.println("<input type=\"submit\" value=\"UPDATE\"></form>");
 		
-		/*<form method="get" action="listprod.jsp">
-		<input type="text" name="productName" size="50">
-		
-		
-		/*<input type=\"submit\" value=\"Submit\"></form> </td>");*/
-		String quantity = request.getParameter("quantity");
-		
-		out.print("<a href=\"ChangeQuantity.jsp?id=" + product.get(0) + "&quantity=" + quantity + "\">Update</a>");
+		// ---
 		
 		out.print("</tr>");
 		
