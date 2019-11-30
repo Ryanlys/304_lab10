@@ -60,13 +60,22 @@
 		ResultSet rst3 = pstmt.executeQuery();
 		int totalRating= 0;
 		int ratingCount = 0;
+		double avgRating;
 		while(rst3.next())
 		{
 			totalRating += rst3.getInt(1);
 			ratingCount++;
 		}
-		double avgRating = totalRating/ratingCount;
-		out.println("<tr><th>Average Rating: </th><td>"+avgRating+"</td><tr>");
+		if(totalRating!=0)
+		{
+			avgRating = totalRating/ratingCount;
+			out.println("<tr><th>Average Rating: </th><td>"+avgRating+"</td><tr>");
+		}
+		else
+		{
+			out.println("<tr><th> No User Reviews Yet!</th><tr>");
+		}
+		
 		if (rst.getInt(5) == 0)
 		{
 			out.println("<tr><th><font color=\"red\">Out Of Stock! Please Check Back Soon!</font></th></tr>");	
