@@ -39,7 +39,7 @@ try
 	NumberFormat currFormat = NumberFormat.getCurrencyInstance();
 	// Make the connection
 	Connection con = DriverManager.getConnection(url, uid, pw);
-	System.out.println("Connecting to database...");
+	//System.out.println("Connecting to database...");
 	
 	PreparedStatement pstmt = con.prepareStatement("select productId, productName, productPrice from product where productName like ?");
 	if (name == null)
@@ -50,7 +50,7 @@ try
 	{
 		name2 = "%" + name + "%";	
 	} 
-	System.out.println("stuff here");
+	//System.out.println("stuff here");
 	pstmt.setString(1,name2);
 	ResultSet rst = pstmt.executeQuery();
 	// Print out the ResultSet
@@ -67,26 +67,23 @@ try
 	session = request.getSession(true);
 	if((int)session.getAttribute("admin")==1)
 	{
-		out.println("<h2><a href=\"adminIndex.jsp\">Back to Index</a></h2>");
+		out.println("<h2><a href=\"adminIndex.jsp\">Back to Homepage</a></h2>");
 	}
 	else
 	{
-		out.println("<h2><a href=\"index.jsp\">Back to Index</a></h2>");
+		out.println("<h2><a href=\"index.jsp\">Back to Homepage</a></h2>");
 	}
 
 // For each product create a link of the form
 // addcart.jsp?id=productId&name=productName&price=productPrice
 // Close connection
-	System.out.println("Stuff should have been done");
+	//System.out.println("Stuff should have been done");
 	con.close();
 }
 catch (Exception e)
 {
 	e.printStackTrace();
 }
-// Useful code for formatting currency values:
-// NumberFormat currFormat = NumberFormat.getCurrencyInstance();
-// out.println(currFormat.format(5.0);	// Prints $5.00
 %>
 
 </body>

@@ -130,7 +130,7 @@ else
 	
 }
 %>
-
+<h2><a href="listprod.jsp">Product list</a></h2>
 <h2><a href="adminIndex.jsp">Back to home page</a></h2>
 
 </body>

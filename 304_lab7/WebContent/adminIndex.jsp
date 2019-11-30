@@ -14,7 +14,7 @@ if(session.getAttribute("authenticatedUser") != null)
 	String name = (String) session.getAttribute("authenticatedUser");
 	String name1 = name.substring(0,1);
 	String name2 = name1.toUpperCase();
-	out.println("<h1 align=\"center\"> Hi " +  name2 + name.substring(1)+ "!</h1>");
+	out.println("<h1 align=\"left\"> Hi " +  name2 + name.substring(1)+ "!</h1>");
 }
 	
 %>

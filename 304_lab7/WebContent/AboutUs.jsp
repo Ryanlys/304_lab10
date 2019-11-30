@@ -21,13 +21,24 @@ The leaves will be collected from many different trees in Canada and thus will c
 Don’t Leaf Me promotes a deeper appreciation to nature so that when someone sees a leaf on the ground, they would stop and acknowledge its beautiful appearance at that moment in fall.
 </blockquote>
 
+<<<<<<< HEAD
 <%
 	if(session.getAttribute("authenticatedUser") != null && (int)session.getAttribute("admin") == 1)
 		out.println("<h2><a href=\"adminIndex.jsp\">Back To Main</a></h2>");
 	else 
 		out.println("<h2><a href=\"index.jsp\">Back To Main</a></h2>");
 %>
+=======
+<h5>P.S. They're all $2.70!!!</h5>
+>>>>>>> branch 'master' of https://github.com/Ryanlys/304_lab10.git
 
+<%
+	if(session.getAttribute("authenticatedUser") != null && (int)session.getAttribute("admin") == 1)
+		out.println("<h2><a href=\"adminIndex.jsp\">Back To Home Page</a></h2>");
+	else 
+		out.println("<h2><a href=\"index.jsp\">Back To Home Page</a></h2>");
+%>
+<h2><a href="listprod.jsp">Our products</a></h2>
 
 </body>
 </html>
